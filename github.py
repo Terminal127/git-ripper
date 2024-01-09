@@ -7,7 +7,7 @@ def scrape_github_readme(repository_name):
     driver = webdriver.Chrome()
 
     try:
-        repository_url = f'https://github.com/Terminal127/{repository_name}'
+        repository_url = f'https://github.com/Shinyzenith/{repository_name}'
         print(f"Navigating to the GitHub repository: {repository_url}")
         driver.get(repository_url)
         time.sleep(10)  # Adjust sleep duration if needed
@@ -15,9 +15,12 @@ def scrape_github_readme(repository_name):
         # Find the README content
         readme_content = driver.find_element(By.CSS_SELECTOR, '.repository-content .markdown-body')
 
-        # Print or save the README content
-        print(readme_content.text)
-        print('-' * 50)
+        # Save the README content to the output file
+        with open("final_github_output.txt", "a" if open("final_github_output.txt").read() else "w") as output_file:
+            # Check if file exists, use "a" for append, "w" for create
+            output_file.write(f"--- Repository: {repository_name} ---\n")
+            output_file.write(readme_content.text + "\n")
+            output_file.write("-" * 50 + "\n")
 
     except Exception as e:
         print(f"Error: {e}")
@@ -43,3 +46,4 @@ def scrape_readmes_from_file(file_path):
 # Example: File containing repository names
 file_path = 'repository_names.txt'
 scrape_readmes_from_file(file_path)
+
