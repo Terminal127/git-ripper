@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.options import Options
 options = Options()
 options.add_argument('--headless=new')
 
-
 def search_github_repositories(username, itemprop_value, output_file='github_repositories.txt'):
     # Set up Chrome WebDriver (adjust the executable_path accordingly)
     driver = webdriver.Chrome(options = options)
@@ -25,8 +24,8 @@ def search_github_repositories(username, itemprop_value, output_file='github_rep
         # Open a file in write mode
         with open(output_file, 'w', encoding='utf-8') as file:
             for result in search_results:
-                repo_name = result.text.replace(" Public", "")
-                if repo_name != "Footer navigation":
+                repo_name = result.text.replace(" Public","")
+                if repo_name not in ("Footer navigation",username):
                     file.write(f"{repo_name}\n")
             
 
@@ -41,4 +40,5 @@ def search_github_repositories(username, itemprop_value, output_file='github_rep
         driver.quit()
 
 # Example: Search for repositories with itemprop='remote codeRepository' for user 'Terminal127'
-search_github_repositories('Terminal127', 'remote codeRepository')
+username = 'Terminal127'
+search_github_repositories(username, 'remote codeRepository')
