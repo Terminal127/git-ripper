@@ -1,10 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from selenium.webdriver.chrome.options import Options
+# enable headless mode in Selenium
+options = Options()
+options.add_argument('--headless=new')
 
 def search_github_repositories(username, itemprop_value, output_file='github_repositories.txt'):
     # Set up Chrome WebDriver (adjust the executable_path accordingly)
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options = options)
 
     try:
         # Navigate to GitHub and perform the search
@@ -19,11 +23,11 @@ def search_github_repositories(username, itemprop_value, output_file='github_rep
 
         # Open a file in write mode
         with open(output_file, 'w', encoding='utf-8') as file:
-            file.write(f"GitHub repositories for {username} with itemprop='{itemprop_value}':\n\n")
-            
             for result in search_results:
-                repo_name = result.text
-                file.write(f"{repo_name}\n")
+                repo_name = result.text.replace(" Public","")
+                if repo_name not in ("Footer navigation",username):
+                    file.write(f"{repo_name}\n")
+            
 
         print(f"Search results saved to {output_file}")
 
@@ -36,4 +40,5 @@ def search_github_repositories(username, itemprop_value, output_file='github_rep
         driver.quit()
 
 # Example: Search for repositories with itemprop='remote codeRepository' for user 'Terminal127'
-search_github_repositories('Terminal127', 'remote codeRepository')
+username = 'Terminal127'
+search_github_repositories(username, 'remote codeRepository')

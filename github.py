@@ -1,13 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
+# enable headless mode in Selenium
+options = Options()
+options.add_argument('--headless=new')
 
 def scrape_github_readme(repository_name):
     # Set up Chrome WebDriver (adjust the executable_path accordingly)
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options = options)
 
     try:
-        repository_url = f'https://github.com/Shinyzenith/{repository_name}'
+        repository_url = f'https://github.com/Terminal127/{repository_name}'
         print(f"Navigating to the GitHub repository: {repository_url}")
         driver.get(repository_url)
         time.sleep(10)  # Adjust sleep duration if needed
@@ -19,8 +23,8 @@ def scrape_github_readme(repository_name):
         with open("final_github_output.txt", "a" if open("final_github_output.txt").read() else "w") as output_file:
             # Check if file exists, use "a" for append, "w" for create
             output_file.write(f"--- Repository: {repository_name} ---\n")
-            output_file.write(readme_content.text + "\n")
-            output_file.write("-" * 50 + "\n")
+            output_file.write(readme_content.text + "\n\n")
+            output_file.write("-" * 50 + "\n\n")
 
     except Exception as e:
         print(f"Error: {e}")
@@ -44,6 +48,6 @@ def scrape_readmes_from_file(file_path):
         print(f"Error reading file: {e}")
 
 # Example: File containing repository names
-file_path = 'repository_names.txt'
+file_path = 'github_repositories.txt'
 scrape_readmes_from_file(file_path)
 
