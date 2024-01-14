@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/Terminal127/scraper/blob/main/gp.png" width="600" height="300" alt="Image">
+    <img src="https://github.com/Terminal127/scraper/blob/main/gp.png" width="900" height="300" alt="Image">
 </p>
 
 This code is written with the pupose of reducing the time required for reviewers for juding a person from his work in github .
