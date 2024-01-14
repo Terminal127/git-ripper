@@ -1,3 +1,6 @@
+<p align="center">
+    <img src="https://github.com/Terminal127/scraper/blob/main/Git%20Ripper-logos_transparent.png" width="600" height="300" alt="Image">
+</p>
 
 <img align=centre src="https://github.com/Terminal127/scraper/blob/main/Git%20Ripper-logos_transparent.png" width=600 height=300> </img>
 
